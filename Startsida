@@ -1,1 +1,312 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rymdens Underverk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #05050f;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Bakgrundsimitation av stjärnhimmel */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -2;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #00d2ff, #7a00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+        }
+
+        p.subtitle {
+            color: #a0aec0;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .main-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 210, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(5, 5, 15, 0.9), transparent);
+            padding: 30px;
+            text-align: left;
+        }
+
+        .hero-overlay h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .hero-overlay p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+        }
+
+        /* Navigeringsknappar */
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .space-btn {
+            background: linear-gradient(135deg, rgba(20, 30, 48, 0.8), rgba(36, 59, 85, 0.8));
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            color: #ffffff;
+            padding: 18px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .space-btn:hover {
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            color: #05050f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.5);
+            border-color: #00d2ff;
+        }
+
+        .space-btn.active {
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            color: #05050f;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+        }
+
+        /* Detalj-sektion för valt objekt */
+        .detail-section {
+            display: none;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.6s ease;
+            text-align: left;
+        }
+
+        .detail-section.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .detail-section.active {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2.2rem; }
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 320px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #00d2ff;
+        }
+
+        .detail-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            text-align: center;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>RYMDENS UNDERVERK</h1>
+        <p class="subtitle">Utforska solsystemets mest spektakulära platser</p>
+    </header>
+
+    <div class="main-container">
+        <!-- Huvudbild med alla planeter -->
+        <div class="hero-image-container">
+            <img src="" alt="Solsystemet och rymden">
+            <div class="hero-overlay">
+                <h2>Vårt Kosmiska Hem</h2>
+                <p>En fascinerande resa bland planeter, stjärnor och galaxer.</p>
+            </div>
+        </div>
+
+        <!-- De 4 snygga knapparna -->
+        <div class="nav-buttons">
+            <button class="space-btn" onclick="showPlanet('jorden')">🌍 Jorden</button>
+            <button class="space-btn" onclick="showPlanet('jupiter')">🪐 Jupiter</button>
+            <button class="space-btn" onclick="showPlanet('manen')">🌕 Månen</button>
+            <button class="space-btn" onclick="showPlanet('saturnus')">💫 Saturnus</button>
+        </div>
+
+        <!-- Informationssektioner för varje val -->
+        <div id="jorden" class="detail-section">
+            <div class="detail-image">
+                <img src="" alt="Jorden från rymden">
+            </div>
+            <div class="detail-content">
+                <h3>Jorden</h3>
+                <p>Jorden är den tredje planeten från solen och den enda kända platsen i universum som hyser liv. Med sina vidsträckta blå hav, levande atmosfär och rika ekosystem är vår planet en unik och oasliknande pärla mitt i den kalla rymden.</p>
+            </div>
+        </div>
+
+        <div id="jupiter" class="detail-section">
+            <div class="detail-image">
+                <img src="" alt="Jupiter från rymden">
+            </div>
+            <div class="detail-content">
+                <h3>Jupiter</h3>
+                <p>Jupiter är solsystemets största planet – en mäktig gasjätte med dramatiska band av virvlande moln och den ikoniska Stora röda fläcken, en gigantisk storm som har rasat i hundratals år.</p>
+            </div>
+        </div>
+
+        <div id="manen" class="detail-section">
+            <div class="detail-image">
+                <img src="" alt="Månen från rymden">
+            </div>
+            <div class="detail-content">
+                <h3>Månen</h3>
+                <p>Jordens naturliga satellit, månen, är täckt av dramatiska kratrar, berg och gamla mörka slätter av stelnad lava. Den har följt vår planet i miljarder år och styr jordens tidvatten.</p>
+            </div>
+        </div>
+
+        <div id="saturnus" class="detail-section">
+            <div class="detail-image">
+                <img src="" alt="Saturnus från rymden">
+            </div>
+            <div class="detail-content">
+                <h3>Saturnus</h3>
+                <p>Känd som solsystemets smycke tack vare sitt magnifika och komplexa system av glittrande ringar bestående av is- och stenpartiklar. Saturnus är en storslagen gasjätte som fascinerar astronomerna än idag.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Rymdens Underverk. Skapad med HTML, CSS och JavaScript.</p>
+    </footer>
+
+    <script>
+        function showPlanet(planetId) {
+            // Dölj alla detaljsektioner först
+            const sections = document.querySelectorAll('.detail-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // Ta bort aktiv klass från alla knappar
+            const buttons = document.querySelectorAll('.space-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Aktivera den valda sektionen
+            const activeSection = document.getElementById(planetId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+                activeSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Markera motsvarande knapp som aktiv
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
