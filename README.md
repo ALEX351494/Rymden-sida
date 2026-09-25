@@ -18,3 +18,5 @@ Hugo - Jupiter
 Alex - Jorden
 Tom - Månen
 Theo - Saturnus
+
+Under detta arbetspass har vi byggt och designat startsidan (index.html) med animerad stjärnhimmel och rymdgrafik. Jag har skapat klickbara planeter och knappar som via JavaScript öppnar en informationsruta med fakta, samt lagt in en knapp i rutan som länkar vidare till respektive himlakropps 3D-sida (jorden.html, jupiter.html, manen.html, saturnus.html). 
