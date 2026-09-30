@@ -20,3 +20,5 @@ Tom - Månen
 Theo - Saturnus
 
 Under detta arbetspass har vi byggt och designat startsidan (index.html) med animerad stjärnhimmel och rymdgrafik. Jag har skapat klickbara planeter och knappar som via JavaScript öppnar en informationsruta med fakta, samt lagt in en knapp i rutan som länkar vidare till respektive himlakropps 3D-sida (jorden.html, jupiter.html, manen.html, saturnus.html). 
+
+30 sep detta arbetspass så pratade vi lite mer om hur våra sidor ska se ut. Vi såg även till att alla är med på vad vi ska göra och vad var och ens uppgift är. Vi tog fram koder så att vi kan köra koden på våra skoldatorer.
