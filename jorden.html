@@ -34,7 +34,7 @@
             pointer-events: none;
             background-image: 
                 radial-gradient(white 1px, transparent 0),
-                radial-gradient(rgba(255,255,255,0.6) 1.5px, transparent 0);
+                radial-gradient(rgba(255, 255, 255, 0.6) 1.5px, transparent 0);
             background-size: 50px 50px, 120px 120px;
             background-position: 0 0, 30px 30px;
             z-index: -1;
@@ -79,7 +79,7 @@
 
         header {
             text-align: center;
-            margin: 20px 20px 20px 20px;
+            margin: 20px;
             z-index: 2;
         }
 
@@ -122,20 +122,23 @@
             border-radius: 50%;
             background: radial-gradient(circle at 35% 35%, #4da6ff, #003366, #001a33);
             box-shadow: 
-                inset -20px -20px 30px rgba(0,0,0,0.9), 
-                0 0 40px rgba(0, 153, 255, 0.6),
+                inset -20px -20px 30px rgba(0, 0, 0, 0.9), 
+                0 0 40px rgba(0, 153, 255, 0.6), 
                 0 0 80px rgba(0, 153, 255, 0.2);
             position: relative;
             animation: rotateEarth 20s linear infinite;
         }
 
-        /* Enkel kontur för kontinenter / molneffekt */
+        /* Molneffekt och kontinenter */
         .earth-large::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
             border-radius: 50%;
-            background: radial-gradient(circle at 60% 60%, rgba(255,255,255,0.15) 0%, transparent 60%);
+            background: radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
         }
 
         @keyframes rotateEarth {
@@ -240,7 +243,7 @@
 
         <!-- Om jordens lager (atmosfären) -->
         <div class="info-card">
-            <h2>🛡️️ Jordens atmosfärskikt (Lager)</h2>
+            <h2>🛡 Jordens atmosfärskikt (Lager)</h2>
             <p>Runt jorden finns ett tjockt lager av gaser som kallas atmosfären. Den skyddar livet på jorden genom att absorbera skadlig solstrålning, hålla temperaturen behaglig (växthuseffekten) och förse oss med syre. Atmosfären delas in i fem huvudlager:</p>
             
             <ul class="layers-list">
@@ -260,5 +263,3 @@
 
 </body>
 </html>
-
-
